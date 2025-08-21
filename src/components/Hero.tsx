@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, Download, ArrowDown } from "lucide-react";
-import headshotPlaceholder from "@/assets/tyler-headshot-placeholder.jpg";
+import headshotImage from "@/assets/tyler-headshot.jpg";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -50,7 +50,7 @@ const Hero = () => {
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 asChild
               >
-                <a href="#resume-placeholder" download>
+                <a href="/Resume.pdf" download="Tyler_Anderson_Resume.pdf">
                   <Download className="mr-2 h-4 w-4" />
                   Download Resume
                 </a>
@@ -98,7 +98,7 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl scale-110"></div>
               <div className="relative card-hover bg-card rounded-full p-2">
                 <img
-                  src={headshotPlaceholder}
+                  src={headshotImage}
                   alt="Tyler Anderson - Embedded Systems Engineer"
                   className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-full"
                   loading="eager"

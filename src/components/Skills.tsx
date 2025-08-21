@@ -17,7 +17,6 @@ const Skills = () => {
       icon: Code2,
       skills: [
         { name: "C/C++", proficiency: 95, description: "Embedded development, real-time systems" },
-        { name: "Python", proficiency: 85, description: "Automation, data analysis, scripting" },
         { name: "Verilog", proficiency: 75, description: "FPGA design, digital circuits" },
         { name: "Assembly", proficiency: 70, description: "ARM Cortex-M, optimization" },
         { name: "MATLAB", proficiency: 80, description: "Signal processing, control systems" }
@@ -29,8 +28,6 @@ const Skills = () => {
       icon: Cpu,
       skills: [
         { name: "Arduino", proficiency: 90, description: "Rapid prototyping, sensors" },
-        { name: "STM32", proficiency: 85, description: "ARM Cortex-M development" },
-        { name: "ESP32", proficiency: 80, description: "WiFi/Bluetooth, IoT applications" },
         { name: "Raspberry Pi", proficiency: 75, description: "Linux embedded, computer vision" },
         { name: "FPGA", proficiency: 65, description: "Digital design, high-speed processing" }
         // [PLACEHOLDER: Update with actual hardware experience]
@@ -43,7 +40,6 @@ const Skills = () => {
         { name: "UART/SPI/I2C", proficiency: 90, description: "Serial communication protocols" },
         { name: "PWM Control", proficiency: 85, description: "Motor control, power management" },
         { name: "ADC/DAC", proficiency: 80, description: "Analog signal processing" },
-        { name: "CAN Bus", proficiency: 70, description: "Automotive communication" },
         { name: "USB Protocol", proficiency: 65, description: "Device communication" }
         // [PLACEHOLDER: Update with actual protocol experience]
       ]
@@ -55,8 +51,7 @@ const Skills = () => {
         { name: "Git/GitHub", proficiency: 90, description: "Version control, collaboration" },
         { name: "Oscilloscope", proficiency: 85, description: "Signal analysis, debugging" },
         { name: "Logic Analyzer", proficiency: 80, description: "Digital signal debugging" },
-        { name: "Multimeter", proficiency: 90, description: "Circuit testing, measurements" },
-        { name: "KiCad/Altium", proficiency: 70, description: "PCB design and layout" }
+        { name: "Multimeter", proficiency: 90, description: "Circuit testing, measurements" }
         // [PLACEHOLDER: Update with actual tools used]
       ]
     },

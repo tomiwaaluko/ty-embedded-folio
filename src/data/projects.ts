@@ -10,7 +10,7 @@ export const projects: Project[] = [
       "/api/placeholder/600/400", 
       "/api/placeholder/600/400"
     ],
-    tech: ["C", "STM32", "PID", "IMU", "I2C"],
+    tech: ["C", "PID", "IMU", "I2C", "Real-time Systems"],
     role: "Embedded Engineer",
     year: "2025",
     links: {
@@ -51,6 +51,29 @@ export const projects: Project[] = [
     featured: true
   },
   {
+    title: "Digital Alarm Clock",
+    slug: "digital-alarm-clock",
+    summary: "FPGA-based digital clock with alarm functionality, 7-segment display, and user interface controls.",
+    images: [
+      "/api/placeholder/600/400",
+      "/api/placeholder/600/400"
+    ],
+    tech: ["Verilog", "FPGA", "Digital Design", "7-Segment Display"],
+    role: "FPGA Developer",
+    year: "2024",
+    links: {
+      code: "https://github.com/placeholder/digital-alarm-clock"
+    },
+    details: [
+      "Developed complete digital clock system using Verilog HDL on FPGA platform",
+      "Implemented time tracking, alarm setting, and display multiplexing for 7-segment displays",
+      "Created user interface with button debouncing and mode selection logic",
+      "Designed modular architecture with separate modules for timekeeping, display, and control",
+      "Verified functionality through simulation and hardware testing on development board"
+    ],
+    featured: true
+  },
+  {
     title: "Stepper Motor Driver & Control",
     slug: "stepper-motor-driver",
     summary: "Precision stepper motor control system with H-bridge driver circuit and microstepping capability for CNC applications.",
@@ -72,7 +95,53 @@ export const projects: Project[] = [
       "Created motion profile generator supporting acceleration and deceleration curves",
       "Achieved 1/16 microstepping resolution with position accuracy of ±0.1°"
     ],
-    featured: true
+    featured: false
+  },
+  {
+    title: "Smart Home Automation System",
+    slug: "smart-home-automation",
+    summary: "IoT-based home automation system with sensor integration, remote monitoring, and mobile app control.",
+    images: [
+      "/api/placeholder/600/400",
+      "/api/placeholder/600/400"
+    ],
+    tech: ["C++", "IoT", "Sensors", "WiFi", "Mobile App"],
+    role: "IoT Developer",
+    year: "2024",
+    links: {
+      code: "https://github.com/placeholder/smart-home",
+      demo: "https://placeholder.demo/smart-home"
+    },
+    details: [
+      "Built comprehensive home automation system with multiple sensor nodes",
+      "Integrated temperature, humidity, motion, and light sensors for environmental monitoring",
+      "Developed wireless communication protocol for sensor data transmission",
+      "Created mobile application for remote monitoring and control of home systems",
+      "Implemented automated responses based on sensor data and user preferences"
+    ],
+    featured: false
+  },
+  {
+    title: "Traffic Light Controller",
+    slug: "traffic-light-controller",
+    summary: "FPGA-based traffic light control system with pedestrian crossing and emergency vehicle detection.",
+    images: [
+      "/api/placeholder/600/400"
+    ],
+    tech: ["Verilog", "FPGA", "State Machines", "Control Systems"],
+    role: "Control Systems Engineer",
+    year: "2024",
+    links: {
+      code: "https://github.com/placeholder/traffic-controller"
+    },
+    details: [
+      "Designed finite state machine for traffic light sequencing and timing control",
+      "Implemented pedestrian crossing functionality with button input and safety delays",
+      "Added emergency vehicle detection with priority override capabilities",
+      "Created comprehensive simulation testbench for all traffic scenarios",
+      "Optimized timing parameters for realistic traffic flow simulation"
+    ],
+    featured: false
   }
 ];
 
