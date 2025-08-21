@@ -1,71 +1,75 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, Eye } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Search, Github } from "lucide-react";
+import { projects, getAllTechTags } from "@/data/projects";
+import { Project, ProjectFilters } from "@/types/project";
+import ProjectCard from "@/components/ProjectCard";
+import ProjectModal from "@/components/ProjectModal";
+import { useState, useMemo } from "react";
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "Smart Home IoT Controller",
-      description: "ESP32-based central hub managing multiple sensors and actuators with real-time data visualization. Features custom communication protocol and low-power mesh networking.",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]
-      tags: ["ESP32", "C++", "WiFi", "MQTT", "Sensors"],
-      githubUrl: "https://github.com/tyler-anderson/smart-home-iot", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "", // [PLACEHOLDER: Add if demo available]
-      detailsUrl: "", // [PLACEHOLDER: Add project details page]
-      featured: true
-    },
-    {
-      title: "PID Motor Control System",
-      description: "STM32-based precision motor controller implementing custom PID algorithms with encoder feedback. Achieves <0.1° positioning accuracy with real-time tuning interface.",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]
-      tags: ["STM32", "C", "PID Control", "PWM", "Encoders"],
-      githubUrl: "https://github.com/tyler-anderson/pid-motor-control", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "",
-      detailsUrl: "",
-      featured: true
-    },
-    {
-      title: "FPGA Audio Processor",
-      description: "Verilog-based real-time audio effects processor implementing multiple digital filters, echo, and reverb effects with configurable parameters via UART interface.",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]  
-      tags: ["FPGA", "Verilog", "Audio DSP", "UART", "Filters"],
-      githubUrl: "https://github.com/tyler-anderson/fpga-audio-processor", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "",
-      detailsUrl: "",
-      featured: false
-    },
-    {
-      title: "Wireless Sensor Network",
-      description: "Multi-node Arduino-based sensor network with custom RF protocol. Features automatic mesh routing, data aggregation, and battery level monitoring with 6-month battery life.",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]
-      tags: ["Arduino", "C++", "RF Communication", "Mesh Network", "Low Power"],
-      githubUrl: "https://github.com/tyler-anderson/wireless-sensor-net", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "",
-      detailsUrl: "",
-      featured: false
-    },
-    {
-      title: "Custom Bootloader Implementation",
-      description: "ARM Cortex-M4 bootloader with OTA update capabilities, encrypted firmware validation, and rollback protection. Supports multiple communication interfaces (UART, SPI, USB).",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]
-      tags: ["ARM", "Assembly", "Bootloader", "OTA Updates", "Security"],
-      githubUrl: "https://github.com/tyler-anderson/custom-bootloader", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "",
-      detailsUrl: "",
-      featured: false
-    },
-    {
-      title: "Real-Time Data Logger",
-      description: "High-speed data acquisition system using STM32 with custom PCB design. Captures and logs sensor data at 1kHz with SD card storage and USB streaming interface.",
-      image: "/api/placeholder/400/250", // [PLACEHOLDER: Replace with actual project image]
-      tags: ["STM32", "PCB Design", "ADC", "SD Card", "USB"],
-      githubUrl: "https://github.com/tyler-anderson/realtime-data-logger", // [PLACEHOLDER: Replace with actual URL]
-      liveUrl: "",
-      detailsUrl: "",
-      featured: false
+  const [filters, setFilters] = useState<ProjectFilters>({
+    search: "",
+    selectedTags: []
+  });
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const allTags = getAllTechTags();
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter(project => {
+      // Search filter
+      const matchesSearch = filters.search === "" || 
+        project.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+        project.summary.toLowerCase().includes(filters.search.toLowerCase()) ||
+        project.tech.some(tag => tag.toLowerCase().includes(filters.search.toLowerCase()));
+
+      // Tag filter
+      const matchesTags = filters.selectedTags.length === 0 ||
+        filters.selectedTags.some(tag => project.tech.includes(tag));
+
+      return matchesSearch && matchesTags;
+    });
+  }, [filters]);
+
+  const handleTagToggle = (tag: string) => {
+    setFilters(prev => ({
+      ...prev,
+      selectedTags: prev.selectedTags.includes(tag)
+        ? prev.selectedTags.filter(t => t !== tag)
+        : [...prev.selectedTags, tag]
+    }));
+  };
+
+  const handleViewDetails = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
+  const currentProjectIndex = selectedProject 
+    ? filteredProjects.findIndex(p => p.slug === selectedProject.slug)
+    : -1;
+
+  const handlePreviousProject = () => {
+    if (currentProjectIndex > 0) {
+      const prevProject = filteredProjects[currentProjectIndex - 1];
+      setSelectedProject(prevProject);
     }
-  ];
+  };
+
+  const handleNextProject = () => {
+    if (currentProjectIndex < filteredProjects.length - 1) {
+      const nextProject = filteredProjects[currentProjectIndex + 1];
+      setSelectedProject(nextProject);
+    }
+  };
 
   return (
     <section id="projects" className="bg-section section-padding">
@@ -82,109 +86,73 @@ const Projects = () => {
             </p>
           </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <Card 
-                key={index} 
-                className={`card-hover fade-up ${project.featured ? 'ring-2 ring-primary/20' : ''}`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Project Image */}
-                <div className="relative overflow-hidden rounded-t-lg bg-muted">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                  {project.featured && (
-                    <div className="absolute top-3 right-3">
-                      <Badge className="bg-primary text-primary-foreground">
-                        Featured
-                      </Badge>
-                    </div>
-                  )}
-                </div>
+          {/* Search and Filters */}
+          <div className="space-y-6 fade-up delay-100">
+            {/* Search */}
+            <div className="relative max-w-md mx-auto">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search projects..."
+                value={filters.search}
+                onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                className="pl-10"
+              />
+            </div>
 
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-foreground">
-                    {project.title}
-                  </CardTitle>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Badge 
-                        key={tagIndex} 
-                        variant="secondary" 
-                        className="text-xs"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-2 pt-2">
-                    {project.githubUrl && (
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1"
-                        asChild
-                      >
-                        <a 
-                          href={project.githubUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="mr-2 h-4 w-4" />
-                          Code
-                        </a>
-                      </Button>
-                    )}
-                    
-                    {project.liveUrl && (
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1"
-                        asChild
-                      >
-                        <a 
-                          href={project.liveUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          Live Demo
-                        </a>
-                      </Button>
-                    )}
-                    
-                    {project.detailsUrl && (
-                      <Button 
-                        size="sm" 
-                        className="flex-1"
-                        asChild
-                      >
-                        <a href={project.detailsUrl}>
-                          <Eye className="mr-2 h-4 w-4" />
-                          Details
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            {/* Filter Tags */}
+            <div className="text-center space-y-3">
+              <p className="text-sm font-medium text-muted-foreground">Filter by technology:</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {allTags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant={filters.selectedTags.includes(tag) ? "default" : "outline"}
+                    className="cursor-pointer transition-colors hover:bg-primary hover:text-primary-foreground"
+                    onClick={() => handleTagToggle(tag)}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
           </div>
+
+          {/* Results Info */}
+          <div className="text-center fade-up delay-200">
+            <p className="text-sm text-muted-foreground">
+              Showing {filteredProjects.length} of {projects.length} projects
+            </p>
+          </div>
+
+          {/* Projects Grid */}
+          {filteredProjects.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={project.slug}
+                  className="fade-up"
+                  style={{ animationDelay: `${(index * 100) + 300}ms` }}
+                >
+                  <ProjectCard
+                    project={project}
+                    onViewDetails={handleViewDetails}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 fade-up delay-300">
+              <div className="space-y-4">
+                <p className="text-muted-foreground text-lg">No projects found matching your criteria.</p>
+                <Button
+                  variant="outline"
+                  onClick={() => setFilters({ search: "", selectedTags: [] })}
+                >
+                  Clear Filters
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Call to Action */}
           <div className="text-center space-y-6 fade-up delay-400">
@@ -218,6 +186,17 @@ const Projects = () => {
             </div>
           </div>
         </div>
+
+        {/* Project Details Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onPrevious={handlePreviousProject}
+          onNext={handleNextProject}
+          hasPrevious={currentProjectIndex > 0}
+          hasNext={currentProjectIndex < filteredProjects.length - 1}
+        />
       </div>
     </section>
   );
