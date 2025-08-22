@@ -1,14 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Code2, 
-  Cpu, 
-  Zap,
-  Wrench,
-  Lightbulb,
-  Star
-} from "lucide-react";
+import { Code2, Cpu, Zap, Wrench, Lightbulb, Star } from "lucide-react";
 
 const Skills = () => {
   const skillCategories = [
@@ -16,57 +9,137 @@ const Skills = () => {
       title: "Programming Languages",
       icon: Code2,
       skills: [
-        { name: "C/C++", proficiency: 95, description: "Embedded development, real-time systems" },
-        { name: "Verilog", proficiency: 75, description: "FPGA design, digital circuits" },
-        { name: "Assembly", proficiency: 70, description: "ARM Cortex-M, optimization" },
-        { name: "MATLAB", proficiency: 80, description: "Signal processing, control systems" }
+        {
+          name: "C/C++",
+          proficiency: 95,
+          description: "Embedded development, real-time systems",
+        },
+        {
+          name: "Verilog",
+          proficiency: 75,
+          description: "FPGA design, digital circuits",
+        },
+        {
+          name: "Assembly",
+          proficiency: 70,
+          description: "ARM Cortex-M, optimization",
+        },
+        {
+          name: "MATLAB",
+          proficiency: 80,
+          description: "Signal processing, control systems",
+        },
         // [PLACEHOLDER: Update with actual skills and proficiencies]
-      ]
+      ],
     },
     {
       title: "Hardware & MCUs",
       icon: Cpu,
       skills: [
-        { name: "Arduino", proficiency: 90, description: "Rapid prototyping, sensors" },
-        { name: "Raspberry Pi", proficiency: 75, description: "Linux embedded, computer vision" },
-        { name: "FPGA", proficiency: 65, description: "Digital design, high-speed processing" }
+        {
+          name: "Arduino",
+          proficiency: 90,
+          description: "Rapid prototyping, sensors",
+        },
+        {
+          name: "Raspberry Pi",
+          proficiency: 75,
+          description: "Linux embedded, computer vision",
+        },
+        {
+          name: "FPGA",
+          proficiency: 65,
+          description: "Digital design, high-speed processing",
+        },
         // [PLACEHOLDER: Update with actual hardware experience]
-      ]
+      ],
     },
     {
       title: "Digital Design & Protocols",
       icon: Zap,
       skills: [
-        { name: "UART/SPI/I2C", proficiency: 90, description: "Serial communication protocols" },
-        { name: "PWM Control", proficiency: 85, description: "Motor control, power management" },
-        { name: "ADC/DAC", proficiency: 80, description: "Analog signal processing" },
-        { name: "USB Protocol", proficiency: 65, description: "Device communication" }
+        {
+          name: "UART/SPI/I2C",
+          proficiency: 90,
+          description: "Serial communication protocols",
+        },
+        {
+          name: "PWM Control",
+          proficiency: 85,
+          description: "Motor control, power management",
+        },
+        {
+          name: "ADC/DAC",
+          proficiency: 80,
+          description: "Analog signal processing",
+        },
+        {
+          name: "USB Protocol",
+          proficiency: 65,
+          description: "Device communication",
+        },
         // [PLACEHOLDER: Update with actual protocol experience]
-      ]
+      ],
     },
     {
       title: "Development Tools",
       icon: Wrench,
       skills: [
-        { name: "Git/GitHub", proficiency: 90, description: "Version control, collaboration" },
-        { name: "Oscilloscope", proficiency: 85, description: "Signal analysis, debugging" },
-        { name: "Logic Analyzer", proficiency: 80, description: "Digital signal debugging" },
-        { name: "Multimeter", proficiency: 90, description: "Circuit testing, measurements" }
+        {
+          name: "Git/GitHub",
+          proficiency: 90,
+          description: "Version control, collaboration",
+        },
+        {
+          name: "Oscilloscope",
+          proficiency: 85,
+          description: "Signal analysis, debugging",
+        },
+        {
+          name: "Logic Analyzer",
+          proficiency: 80,
+          description: "Digital signal debugging",
+        },
+        {
+          name: "Multimeter",
+          proficiency: 90,
+          description: "Circuit testing, measurements",
+        },
         // [PLACEHOLDER: Update with actual tools used]
-      ]
+      ],
     },
     {
       title: "Core Concepts",
       icon: Lightbulb,
       skills: [
-        { name: "RTOS Basics", proficiency: 75, description: "Real-time task scheduling" },
-        { name: "PID Control", proficiency: 80, description: "Feedback control systems" },
-        { name: "Low-Power Design", proficiency: 70, description: "Battery-efficient systems" },
-        { name: "Signal Processing", proficiency: 75, description: "Filtering, FFT, DSP" },
-        { name: "Bootloaders", proficiency: 65, description: "System initialization, updates" }
+        {
+          name: "RTOS Basics",
+          proficiency: 75,
+          description: "Real-time task scheduling",
+        },
+        {
+          name: "PID Control",
+          proficiency: 80,
+          description: "Feedback control systems",
+        },
+        {
+          name: "Low-Power Design",
+          proficiency: 70,
+          description: "Battery-efficient systems",
+        },
+        {
+          name: "Signal Processing",
+          proficiency: 75,
+          description: "Filtering, FFT, DSP",
+        },
+        {
+          name: "Bootloaders",
+          proficiency: 65,
+          description: "System initialization, updates",
+        },
         // [PLACEHOLDER: Update with actual concept knowledge]
-      ]
-    }
+      ],
+    },
   ];
 
   const getProficiencyColor = (proficiency: number) => {
@@ -87,13 +160,15 @@ const Skills = () => {
     <section id="skills" className="bg-hero section-padding">
       <div className="container-width">
         <div className="space-y-16">
-          
           {/* Section Header */}
           <div className="text-center space-y-4 fade-up">
-            <h2 className="text-section font-heading text-foreground">Technical Skills</h2>
+            <h2 className="text-section font-heading text-foreground">
+              Technical Skills
+            </h2>
             <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive expertise in embedded systems development, from low-level hardware control to high-level system design.
+              Comprehensive expertise in embedded systems development, from
+              low-level hardware control to high-level system design.
             </p>
           </div>
 
@@ -102,7 +177,11 @@ const Skills = () => {
             {skillCategories.map((category, categoryIndex) => {
               const IconComponent = category.icon;
               return (
-                <Card key={categoryIndex} className="card-hover fade-up" style={{ animationDelay: `${categoryIndex * 100}ms` }}>
+                <Card
+                  key={categoryIndex}
+                  className="card-hover fade-up"
+                  style={{ animationDelay: `${categoryIndex * 100}ms` }}
+                >
                   <CardHeader className="pb-4">
                     <CardTitle className="flex items-center gap-3 text-foreground">
                       <div className="p-2 bg-primary/10 rounded-lg">
@@ -119,9 +198,11 @@ const Skills = () => {
                             <span className="font-medium text-foreground text-sm">
                               {skill.name}
                             </span>
-                            <Badge 
-                              variant="secondary" 
-                              className={`text-xs ${getProficiencyColor(skill.proficiency)}`}
+                            <Badge
+                              variant="secondary"
+                              className={`text-xs ${getProficiencyColor(
+                                skill.proficiency
+                              )}`}
                             >
                               {getProficiencyLabel(skill.proficiency)}
                             </Badge>
